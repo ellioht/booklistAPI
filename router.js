@@ -17,4 +17,11 @@ router.put('/books/:id', booklist.updateBook);
 // DELETE an existing book by id
 router.delete('/books/:id', booklist.deleteBook);
 
+// DELETE all books
+router.delete('/books', booklist.deleteBooks);
+
+// GET all books that match a given filter
+router.get('/books', booklist.getBooksByFilter);
+
+
 module.exports = router;

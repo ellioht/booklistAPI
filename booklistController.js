@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 
 // sample books
-let books = [
+var books = [
     { id: 1, title: 'The Lord of the Rings', author: 'J.R.R. Tolkien', read: true },
     { id: 2, title: 'Harry Potter and the Philosopher\'s Stone', author: 'J.K. Rowling', read: false },
     { id: 3, title: 'The Hobbit', author: 'J.R.R. Tolkien', read: true },
@@ -57,3 +57,28 @@ exports.deleteBook = (req, res, next) => {
         next(createError(404));
     }
 }
+
+// DELETE all books
+exports.deleteBooks = (req, res) => {
+    books = [];
+    res.status(200).json(books);
+}
+
+// FILTERS
+
+// GET by filter  /books?read=true
+exports.getBooksByFilter = (req, res) => {
+    const { title, author, read } = req.query;
+    let filteredBooks = books;
+  
+    if (read) {
+      filteredBooks = filteredBooks.filter(book => book.read === read);
+    }
+    if (title) {
+      filteredBooks = filteredBooks.filter(book => book.title === title);
+    }
+    if (author) {
+      filteredBooks = filteredBooks.filter(book => book.author === author);
+    }
+    res.status(200).json(filteredBooks);
+  };
