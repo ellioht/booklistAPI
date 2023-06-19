@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3000;
 const router = require('./router.js');
 
 // Tell the Express application to parse incoming JSON data
