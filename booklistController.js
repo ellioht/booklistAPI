@@ -101,19 +101,22 @@ exports.deleteBooks = async (req, res) => {
 
 // FILTERS
 
-// GET by filter  /books?read=true
-// exports.getBooksByFilter = (req, res) => {
-//   const { title, author, read } = req.query;
-//   let filteredBooks = books;
-
-//   if (read) {
-//     filteredBooks = filteredBooks.filter((book) => book.read === read);
-//   }
-//   if (title) {
-//     filteredBooks = filteredBooks.filter((book) => book.title === title);
-//   }
-//   if (author) {
-//     filteredBooks = filteredBooks.filter((book) => book.author === author);
-//   }
-//   res.status(200).json(filteredBooks);
-// };
+// GET /api/books/filter?author=J.R.R. Tolkien
+exports.getBooksByFilter = async (req, res, next) => {
+  const filter = {};
+  if (req.query.author) {
+    filter.author = req.query.author;
+  }
+  if (req.query.title) {
+    filter.title = req.query.title;
+  }
+  if (req.query.read) {
+    filter.read = req.query.read;
+  }
+  try {
+    const books = await Book.find(filter);
+    res.send(books);
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+}

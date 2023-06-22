@@ -21,7 +21,7 @@ router.delete('/books/:id', booklist.deleteBook);
 router.delete('/books', booklist.deleteBooks);
 
 // GET all books that match a given filter
-// router.get('/books', booklist.getBooksByFilter);
+router.get('/filter', booklist.getBooksByFilter);
 
 
 module.exports = router;
